@@ -1,0 +1,38 @@
+repos:
+  # Стандартные хуки (проверка пробелов, концов файлов)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  # Ruff (Линтер + Сортировка импортов)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.14
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        files: ^backend/
+
+  # Black (Форматирование кода)
+  - repo: https://github.com/psf/black
+    rev: 24.1.1
+    hooks:
+      - id: black
+        files: ^backend/
+
+  # Mypy (Типизация)
+  # Используем 'local', чтобы использовать mypy из твоего virtualenv (backend/.venv)
+  # Это нужно, чтобы mypy видел установленные библиотеки (FastAPI и т.д.)
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: poetry -C backend run mypy
+        language: system
+        types: [python]
+        files: ^backend/
+        pass_filenames: false
+        args: ["."]

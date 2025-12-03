@@ -1,0 +1,52 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "EventHub Backend"
+authors = [{name = "panfiloow", email = "panfiloow@mail.ru"}]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi (>=0.109.0)",
+    "uvicorn[standard] (>=0.27.0)",
+    "pydantic-settings (>=2.1.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "mypy (>=1.8.0)",
+    "ruff (>=0.1.0)",
+    "black (>=24.0.0)",
+    "pre-commit (>=3.6.0)"
+]
+
+# --- Tool Configurations ---
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+src = ["."]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort (сортировка импортов)
+    "B",  # flake8-bugbear (поиск багов)
+    "C4", # flake8-comprehensions
+]
+ignore = []
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+ignore_missing_imports = true
+exclude = ["venv", ".venv", "alembic"]
