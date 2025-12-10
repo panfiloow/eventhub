@@ -61,3 +61,13 @@ plugins = ["pydantic.mypy"]
 init_forbid_extra = true
 init_typed = true
 warn_required_dynamic_aliases = true
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Security",
+    "fastapi.Header",
+]
